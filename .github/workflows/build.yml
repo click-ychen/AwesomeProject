@@ -1,0 +1,70 @@
+name: react-native-android-build-apk
+on:
+  pull_request:
+    types: [opened, reopened]
+
+env:
+  PR_NUMBER: ${{ github.event.number }}
+  APPLIVERY_API_KEY: ${{ vars.APPLIVERY_API_KEY }}
+  IS_ALPHA_BUILD: true
+  IS_BETA_BUILD: false
+  IS_PROD_BUILD: false
+
+
+jobs:
+  install-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install npm dependencies
+        run: |
+          npm install
+  build-android:
+    needs: install-and-test
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Install npm dependencies
+        run: |
+          npm install
+
+      - name: Get short sha
+        id: short-sha
+        run: echo "GIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Echo short sha
+        run: echo $GIT_HASH
+
+      - name: Echo PR info
+        run: echo "[PR #${{ github.event.number }}] ${{ github.event.pull_request.title }}"
+
+      - name: Get current date
+        run: echo "CURRENT_DATE=$(date +'%m-%d-%y')" >> $GITHUB_ENV
+
+      - name: echo current date
+        run: echo $CURRENT_DATE
+
+      - name: GET BUILD Flavor
+        run: |
+          if [ "$IS_ALPHA_BUILD" == true]; then
+            echo "BUILD_FLAVOR=BetaInternal" >> $GITHUB_ENV
+          elif [ "$IS_BETA_BUILD" == true]; then
+            echo "BUILD_FLAVOR=Beta" >> $GITHUB_ENV
+          elif [ "$IS_PROD_BUILD" == true]; then
+            echo "BUILD_FLAVOR=Prod" >> $GITHUB_ENV
+          else
+            exit 1
+          fi
+
+      # - name: echo error
+      #   run: echo "::error::You have to set the .env file"
+
+      # - name: Build Android Release
+      #   run: |
+      #     cd android && ./gradlew assembleRelease
+      # - name: Upload Artifact
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: app-release.apk
+      #     path: android/app/build/outputs/apk/release/
+
