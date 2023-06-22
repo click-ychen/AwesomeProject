@@ -79,4 +79,5 @@ jobs:
           changelog: "[PR #${{ github.event.number }}] ${{ github.event.pull_request.title }}"
           # notify: false
           tags: tag1, tag2
+          github-tag: ${{ github.ref_name }}
 

@@ -13,10 +13,14 @@ inputs:
     default: false
   tags:
     description: 'List of tags, in CSV (e.g. production,english)'
-    required: false
+    required: true
   changelog:
     description: 'changelog, A string that includes the date, pull request number, pull request name (optional), commit, version, build type, environment. (05_08_23 PR 2707 Commit fd51f5b v0.1.0 Alpha KDV13)'
     required: true
+  github-tag:
+    description: 'Github tag'
+    required: false
+
 runs:
   using: 'composite'
   steps:
@@ -28,4 +32,7 @@ runs:
         NOTIFY: ${{ inputs.notify }}
         TAGS: ${{ inputs.tags }}
         CHANGELOG: ${{ inputs.changelog }}
+        GITHUB_TAG: ${{ inputs.github-tag }}
+
+        # GITHUB_TAG: ${{ github.ref }}
       run: ${{ github.action_path }}/upload-applivery.sh
