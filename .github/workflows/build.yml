@@ -72,10 +72,10 @@ jobs:
           path: android/app/build/outputs/apk/release/
 
       - name: Upload to Applivery
-        uses: .github/actions/upload-applivery
+        uses: ./.github/actions/upload-applivery
         with:
           api-key: ${{ vars.APPLIVERY_API_KEY }}
-          app-file: ndroid/app/build/outputs/apk/release/app-release.apk
+          app-file: android/app/build/outputs/apk/release/app-release.apk
           release-notes: "[PR #${{ github.event.number }}] ${{ github.event.pull_request.title }}"
           notify: false
           tags: tag1, tag2
