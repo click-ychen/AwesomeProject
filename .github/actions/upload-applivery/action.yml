@@ -14,9 +14,9 @@ inputs:
   tags:
     description: 'List of tags, in CSV (e.g. production,english)'
     required: false
-  release-notes:
-    description: 'Release notes'
-    required: false
+  changelog:
+    description: 'changelog, A string that includes the date, pull request number, pull request name (optional), commit, version, build type, environment. (05_08_23 PR 2707 Commit fd51f5b v0.1.0 Alpha KDV13)'
+    required: true
 runs:
   using: 'composite'
   steps:
@@ -27,5 +27,5 @@ runs:
         APP_FILE: ${{ inputs.app-file }}
         NOTIFY: ${{ inputs.notify }}
         TAGS: ${{ inputs.tags }}
-        RELEASE_NOTES: ${{ inputs.release-notes }}
+        CHANGELOG: ${{ inputs.changelog }}
       run: ${{ github.action_path }}/upload-applivery.sh
