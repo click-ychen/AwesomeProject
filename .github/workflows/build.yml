@@ -44,17 +44,17 @@ jobs:
       - name: echo current date
         run: echo $CURRENT_DATE
 
-      - name: GET BUILD Flavor
-        run: |
-          if [ "$IS_ALPHA_BUILD" == true]; then
-            echo "BUILD_FLAVOR=BetaInternal" >> $GITHUB_ENV
-          elif [ "$IS_BETA_BUILD" == true]; then
-            echo "BUILD_FLAVOR=Beta" >> $GITHUB_ENV
-          elif [ "$IS_PROD_BUILD" == true]; then
-            echo "BUILD_FLAVOR=Prod" >> $GITHUB_ENV
-          else
-            exit 1
-          fi
+      # - name: GET BUILD Flavor
+      #   run: |
+      #     if [ "$IS_ALPHA_BUILD" == true]; then
+      #       echo "BUILD_FLAVOR=BetaInternal" >> $GITHUB_ENV
+      #     elif [ "$IS_BETA_BUILD" == true]; then
+      #       echo "BUILD_FLAVOR=Beta" >> $GITHUB_ENV
+      #     elif [ "$IS_PROD_BUILD" == true]; then
+      #       echo "BUILD_FLAVOR=Prod" >> $GITHUB_ENV
+      #     else
+      #       exit 1
+      #     fi
 
       # - name: echo error
       #   run: echo "::error::You have to set the .env file"
