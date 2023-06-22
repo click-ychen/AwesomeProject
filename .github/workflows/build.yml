@@ -36,7 +36,7 @@ jobs:
         run: echo $GIT_HASH
 
       - name: Echo PR info
-        run: echo "[PR #${{ github.event.number }}] ${{ github.event.pull_request.title }}"
+        run: pr=[PR #${{ github.event.number }}] ${{ github.event.pull_request.title }}; echo $pr
 
       - name: Get current date
         run: echo "CURRENT_DATE=$(date +'%m-%d-%y')" >> $GITHUB_ENV
