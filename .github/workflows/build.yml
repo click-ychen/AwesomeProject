@@ -28,24 +28,24 @@ jobs:
         run: |
           npm install
 
-      - name: Get short sha
-        id: short-sha
-        run: echo "GIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      # - name: Get short sha
+      #   id: short-sha
+      #   run: echo "GIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Echo short sha
-        run: echo $GIT_HASH
+      # - name: Echo short sha
+      #   run: echo $GIT_HASH
 
-      - name: Echo PR 
-        run: echo ${{ github.event.number }}
+      # - name: Echo PR 
+      #   run: echo ${{ github.event.number }}
       
-      - name: Echo PR Title 
-        run: echo ${{ github.event.pull_request.title }}
+      # - name: Echo PR Title 
+      #   run: echo ${{ github.event.pull_request.title }}
 
-      - name: Get current date
-        run: echo "CURRENT_DATE=$(date +'%m-%d-%y')" >> $GITHUB_ENV
+      # - name: Get current date
+      #   run: echo "CURRENT_DATE=$(date +'%m-%d-%y')" >> $GITHUB_ENV
 
-      - name: echo current date
-        run: echo $CURRENT_DATE
+      # - name: echo current date
+      #   run: echo $CURRENT_DATE
 
       # - name: GET BUILD Flavor
       #   run: |
@@ -62,12 +62,21 @@ jobs:
       # - name: echo error
       #   run: echo "::error::You have to set the .env file"
 
-      # - name: Build Android Release
-      #   run: |
-      #     cd android && ./gradlew assembleRelease
-      # - name: Upload Artifact
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: app-release.apk
-      #     path: android/app/build/outputs/apk/release/
+      - name: Build Android Release
+        run: |
+          cd android && ./gradlew assembleRelease
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/
+
+      - name: Upload to Applivery
+        uses: ./.github/actions/upload-applivery
+        with:
+          api-key: ${{ vars.APPLIVERY_API_KEY }}
+          app-file: ndroid/app/build/outputs/apk/release/app-release.apk
+          release-notes: "[PR #${{ github.event.number }}] ${{ github.event.pull_request.title }}"
+          notify: false
+          tags: tag1, tag2
 

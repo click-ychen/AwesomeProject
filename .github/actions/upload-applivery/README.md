@@ -14,7 +14,6 @@ steps:
     with:
       api-key: ${{ env.APPLIVERY_API_KEY }}
       app-file: ${{ env.ARTIFACT_PATH }}
-      testers-groups: 'internal,beta'
       tags: 'production,english'
       release-notes: 'some bug fixes'
       notifyCollaborators: true

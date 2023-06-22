@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-curl https://upload.testfairy.com/api/upload \
+curl https://api.applivery.io/v1/integrations/builds \
     -F api_key="$API_KEY" \
     -F file="@$APP_FILE" \
     -F notify="$NOTIFY" \
