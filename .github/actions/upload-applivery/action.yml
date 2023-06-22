@@ -10,7 +10,7 @@ inputs:
   notify:
     description: 'Notify'
     required: false
-    default: 'on'
+    default: false
   tags:
     description: 'List of tags, in CSV (e.g. production,english)'
     required: false
