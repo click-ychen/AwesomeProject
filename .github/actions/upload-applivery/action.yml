@@ -1,0 +1,31 @@
+name: 'Upload Applivery'
+description: 'Upload React Native builds to Applivery'
+inputs:
+  api-key:
+    description: 'Applivery API Key'
+    required: true
+  app-file:
+    description: 'Path to build file (.apk or .ipa)'
+    required: true
+  notify:
+    description: 'Notify'
+    required: false
+    default: 'on'
+  tags:
+    description: 'List of tags, in CSV (e.g. production,english)'
+    required: false
+  changelog:
+    description: 'changelog, A string that includes the date, pull request number, pull request name (optional), commit, version, build type, environment. (05_08_23 PR 2707 Commit fd51f5b v0.1.0 Alpha KDV13)'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Upload to Applivery
+      shell: bash
+      env:
+        API_KEY: ${{ inputs.api-key }}
+        APP_FILE: ${{ inputs.app-file }}
+        NOTIFY: ${{ inputs.notify }}
+        TAGS: ${{ inputs.tags }}
+        CHANGELOG: ${{ inputs.changelog }}
+      run: ${{ github.action_path }}/upload-applivery.sh
