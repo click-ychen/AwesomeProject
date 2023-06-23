@@ -20,6 +20,10 @@ inputs:
   github-tag:
     description: 'Github tag'
     required: false
+  version: 
+    description: 'app version'
+    required: true
+
 
 runs:
   using: 'composite'
@@ -33,6 +37,7 @@ runs:
         TAGS: ${{ inputs.tags }}
         CHANGELOG: ${{ inputs.changelog }}
         GITHUB_TAG: ${{ inputs.github-tag }}
+        VERSION: ${{ inputs.version }}
 
         # GITHUB_TAG: ${{ github.ref }}
       run: ${{ github.action_path }}/upload-applivery.sh

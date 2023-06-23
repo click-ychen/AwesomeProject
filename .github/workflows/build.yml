@@ -82,5 +82,6 @@ jobs:
           changelog: "${{ env.CURRENT_DATE }} PR #${{ github.event.number }} ${{ github.event.pull_request.title }} commit ${{ env.GIT_HASH }}"
           notify: false
           tags: tag1, tag2
-          github-tag: ${{ github.ref }}
+          # github-tag: ${{ github.ref }}
+          version: 'v1.0.0'
 
