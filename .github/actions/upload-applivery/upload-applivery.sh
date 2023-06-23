@@ -8,4 +8,4 @@ curl https://api.applivery.io/v1/integrations/builds \
     -F tags="$TAGS" \
     -F deployer.name='github action' \
     -F deployer.info.tag="$GITHUB_TAG"  \
-    -F versionName="$VERSION_NAME"
+    -F versionName="$VERSION"
